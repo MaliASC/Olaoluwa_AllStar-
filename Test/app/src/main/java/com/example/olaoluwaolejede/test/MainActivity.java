@@ -1,9 +1,11 @@
 package com.example.olaoluwaolejede.test;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -47,16 +49,21 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         //If settings button clicked, starts settings activity (page)
-        if(id == R.id.action_settings){
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
 
         if(id == R.id.action_profile){
-            Intent intent = new Intent(this, ProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            // Intent for the activity to open when user selects the notification
+
+            // Use TaskStackBuilder to build the back stack and get the PendingIntent
+            PendingIntent pendingIntent =
+                    TaskStackBuilder.create(MainActivity.this)
+                            // add all of DetailsActivity's parents to the stack,
+                            // followed by DetailsActivity itself
+                            .addNextIntentWithParentStack(intent)
+                            .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
             startActivity(intent);
-            return true;
+
         }
 
         //If about us button clicked, starts about Activity (page)

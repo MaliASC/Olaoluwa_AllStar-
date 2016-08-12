@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+
         if (id == R.id.action_help) {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
